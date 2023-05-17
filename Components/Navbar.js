@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import style from "../styles/Navbar.module.css";
-import {
-  MDBBtn
-} from 'mdb-react-ui-kit';
 function Navbar() {
+  useEffect(() => {
+    const userCookie = document.cookie.split(';').find(cookie => cookie.startsWith('user='))
+    console.log(userCookie);
+  },[])
   return (
     <>
       <nav className={style.nav}>

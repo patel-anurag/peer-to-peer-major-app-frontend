@@ -1,23 +1,46 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Navbar from "../Components/Navbar";
 function Register() {
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [phone, setPhone] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
-  const [city, setCity] = useState("");
-  const [address, setAddress] = useState("");
-  const [panNo, setPanNo] = useState("");
-
-  const handleSubmit = (e) => {
+  const [name,setName] = useState("");
+  const [email,setEmail] = useState("");
+  const [password,setPassword] = useState("");
+  const [phone,setPhone] = useState("");
+  const [currentaddress,setCurrentAddress] = useState("");
+  const [permanentaddress,setPermanentAddress] = useState("");
+  const [pan,setPan] = useState("");
+  const [city,setCity] = useState("");
+  const [state,setState] = useState("");
+  const handleSubmit = async(e) => {
     e.preventDefault();
-
-    // Perform registration logic here
-    // You can access the form data using the state values
-    console.log("Form submitted!");
+    const newData = {
+      name,
+      email,
+      password,
+      phone,
+      currentaddress,
+      permanentaddress,
+      pan,
+      city,
+      state
+    };
+    console.log("newData",newData);
+    const response = await axios("http://localhost:3001/register",newData);
+    // if(response){
+      
+    // }
   };
+
+  useEffect(() => {
+    setName("");
+    setEmail("");
+    setPassword("");
+    setPhone("");
+    setCurrentAddress("");
+    setPermanentAddress("");
+    setPan("");
+    setCity("");
+    setState("");
+  }, []);
 
   return (
     <>
@@ -28,24 +51,22 @@ function Register() {
           <form className="login_addItemForm" onSubmit={handleSubmit}>
             <div className="login_user__details">
               <div className="login_input__box">
-                <span className="login_details">First Name:</span>
+                <span className="login_details">Full Name:</span>
                 <input
                   className="login_addItemFormInput"
                   type="text"
-                  placeholder="Enter Username Here"
-                  value={firstName}
-                  onChange={(e) => setFirstName(e.target.value)}
+                  placeholder="Enter Full Name Here"
+                  onChange={(e) => setName(e.target.value)}
                   required
                 />
               </div>
               <div className="login_input__box">
-                <span className="login_details">Last Name:</span>
+                <span className="login_details">Password:</span>
                 <input
                   className="login_addItemFormInput"
-                  type="text"
+                  type="password"
                   placeholder="Enter Password Here"
-                  value={lastName}
-                  onChange={(e) => setLastName(e.target.value)}
+                  onChange={(e) => setPassword(e.target.value)}
                   required
                 />
               </div>
@@ -54,7 +75,6 @@ function Register() {
                 <input
                   className="login_addItemFormInput"
                   type="text"
-                  value={phone}
                   onChange={(e) => setPhone(e.target.value)}
                   placeholder="Enter phone number Here"
                   required
@@ -65,31 +85,28 @@ function Register() {
                 <input
                   className="login_addItemFormInput"
                   type="email"
-                  value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="Enter Email Here"
                   required
                 />
               </div>
               <div className="login_input__box">
-                <span className="login_details">Password:</span>
+                <span className="login_details">Current Address:</span>
                 <input
                   className="login_addItemFormInput"
-                  type="password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  placeholder="Enter Password Here"
+                  type="text"
+                  onChange={(e) => setCurrentAddress(e.target.value)}
+                  placeholder="Enter Current Address Here"
                   required
                 />
               </div>
               <div className="login_input__box">
-                <span className="login_details">Confirm Password:</span>
+                <span className="login_details">Permanent Address:</span>
                 <input
                   className="login_addItemFormInput"
-                  type="password"
-                  value={confirmPassword}
-                  onChange={(e) => setConfirmPassword(e.target.value)}
-                  placeholder="Enter Confirm Password Here"
+                  type="text"
+                  onChange={(e) => setPermanentAddress(e.target.value)}
+                  placeholder="Enter Permanent Address Here"
                   required
                 />
               </div>
@@ -98,20 +115,18 @@ function Register() {
                 <input
                   className="login_addItemFormInput"
                   type="text"
-                  value={city}
                   onChange={(e) => setCity(e.target.value)}
                   placeholder="Enter City Here"
                   required
                 />
               </div>
               <div className="login_input__box">
-                <span className="login_details">Address:</span>
+                <span className="login_details">State:</span>
                 <input
                   className="login_addItemFormInput"
                   type="text"
-                  value={address}
-                  onChange={(e) => setAddress(e.target.value)}
-                  placeholder="Enter Address Here"
+                  onChange={(e) => setState(e.target.value)}
+                  placeholder="Enter State Here"
                   required
                 />
               </div>
@@ -120,8 +135,7 @@ function Register() {
                 <input
                   className="login_addItemFormInput"
                   type="text"
-                  value={panNo}
-                  onChange={(e) => setPanNo(e.target.value)}
+                  onChange={(e) => setPan(e.target.value)}
                   placeholder="Enter PAN number Here"
                   required
                 />

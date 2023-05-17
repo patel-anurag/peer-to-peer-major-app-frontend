@@ -40,7 +40,7 @@ const BidModal = ({ isOpen, closeModal, product }) => {
       .catch((error) => {
         console.error(error);
       });
-    // closeModal();
+    closeModal();
   };
   return (
     <ReactModal

@@ -5,7 +5,7 @@ export default function Home() {
   return (
     <>
       <Navbar />
-      <SearchBar />
+      {/* <SearchBar /> */}
       <HomeCard />
     </>
   );
