@@ -10,14 +10,21 @@ function additem() {
   const [fileName,setFileName] = useState("");
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const newData = {
-      email,
-      password
-    };
-    const response = await axios("http://localhost:3001/login",newData);
-    // if(response){
-
-    // }
+    // create request object for file upload to node js multer
+    const formData = new FormData();
+    formData.append("image",image);
+    formData.append("itemName",itemName);
+    formData.append("yearOfBuy",yearOfBuy);
+    formData.append("biddingPrice",biddingPrice);
+    formData.append("description",description);
+    formData.append("fileName",fileName);
+    
+    const response = await axios.post("http://localhost:8080/item/addItem",formData);
+    if(response.status === 201){
+      alert("Item Added Successful");
+    }else if(response.status === 202){
+      alert("Invalid Credentials")
+    }
   }
   return (
     <>
@@ -25,15 +32,15 @@ function additem() {
       <div className="formParentContainer">
       <div class="container">
         <div class="title">Add New Item</div>
-        <form className="addItemForm" action="#">
-          <div class="user__details"> */
+        <form className="addItemForm" action="#" encType="multipart/form-data">
+          {/* <div class="user__details"> 
             <div class="input__box">
               <span class="details">Item Name</span>
               <input
                 className="addItemFormInput"
                 type="text"
                 placeholder="eg. Maruti Suzuki Alto"
-                // required
+                required
               />
             </div>
             <div class="input__box">
@@ -42,7 +49,7 @@ function additem() {
                 className="addItemFormInput"
                 type="text"
                 placeholder="eg. 2000"
-                // required
+                required
               />
             </div>
             <div class="input__box">
@@ -51,14 +58,14 @@ function additem() {
                 className="addItemFormInput"
                 type="text"
                 placeholder="eg. ₹ 20000"
-                // required
+                required
               />
             </div>
-          </div>
-          <div class="textarea-container">
+          </div> */}
+          {/* <div class="textarea-container">
             <span class="details">Describe your order</span>
             <textarea class="textarea" placeholder="Enter Here"></textarea>
-          </div>
+          </div> */}
           <div class="user__details">
             <div class="input__box" style={{marginTop:"20px !important"}}>
               <span class="details">Item Image</span>

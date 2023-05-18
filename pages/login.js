@@ -1,12 +1,22 @@
 import React, { useState } from "react";
 import Navbar from "../Components/Navbar";
-
+import axios from 'axios';
 function login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    
+    const newData = {
+      email,
+      password
+    };
+    console.log("newData",newData);
+    const response = await axios.post("http://localhost:8080/user/login",newData);
+    if(response.status === 201){
+      alert("Register Successful");
+    }else if(response.status === 202){
+      alert("Invalid Credentials")
+    }
   };
   return (
     <>

@@ -1,42 +1,44 @@
 import React, { useEffect, useState } from "react";
 import Navbar from "../Components/Navbar";
+
+import axios from 'axios';
 function Register() {
-  const [name,setName] = useState("");
+  const [fname,setfName] = useState("");
+  const [lname,setlName] = useState("");
   const [email,setEmail] = useState("");
   const [password,setPassword] = useState("");
   const [phone,setPhone] = useState("");
-  const [currentaddress,setCurrentAddress] = useState("");
-  const [permanentaddress,setPermanentAddress] = useState("");
+  const [address,setAddress] = useState("");
   const [pan,setPan] = useState("");
   const [city,setCity] = useState("");
   const [state,setState] = useState("");
   const handleSubmit = async(e) => {
     e.preventDefault();
     const newData = {
-      name,
+      firstname: fname,
+      lastname: lname,
       email,
       password,
       phone,
-      currentaddress,
-      permanentaddress,
+      address,
       pan,
       city,
       state
     };
     console.log("newData",newData);
-    const response = await axios("http://localhost:3001/register",newData);
-    // if(response){
-      
-    // }
+    const response = await axios.post("http://localhost:8080/user/register",newData);
+    if(response.status === 201){
+      alert("Register Successful");
+    }
   };
 
   useEffect(() => {
-    setName("");
+    setfName("");
+    setlName("");
     setEmail("");
     setPassword("");
     setPhone("");
-    setCurrentAddress("");
-    setPermanentAddress("");
+    setAddress("");
     setPan("");
     setCity("");
     setState("");
@@ -51,12 +53,22 @@ function Register() {
           <form className="login_addItemForm" onSubmit={handleSubmit}>
             <div className="login_user__details">
               <div className="login_input__box">
-                <span className="login_details">Full Name:</span>
+                <span className="login_details">First Name:</span>
                 <input
                   className="login_addItemFormInput"
                   type="text"
-                  placeholder="Enter Full Name Here"
-                  onChange={(e) => setName(e.target.value)}
+                  placeholder="Enter First Name Here"
+                  onChange={(e) => setfName(e.target.value)}
+                  required
+                />
+              </div>
+              <div className="login_input__box">
+                <span className="login_details">Last Name:</span>
+                <input
+                  className="login_addItemFormInput"
+                  type="text"
+                  placeholder="Enter Last Name Here"
+                  onChange={(e) => setlName(e.target.value)}
                   required
                 />
               </div>
@@ -91,22 +103,12 @@ function Register() {
                 />
               </div>
               <div className="login_input__box">
-                <span className="login_details">Current Address:</span>
+                <span className="login_details">Address:</span>
                 <input
                   className="login_addItemFormInput"
                   type="text"
-                  onChange={(e) => setCurrentAddress(e.target.value)}
-                  placeholder="Enter Current Address Here"
-                  required
-                />
-              </div>
-              <div className="login_input__box">
-                <span className="login_details">Permanent Address:</span>
-                <input
-                  className="login_addItemFormInput"
-                  type="text"
-                  onChange={(e) => setPermanentAddress(e.target.value)}
-                  placeholder="Enter Permanent Address Here"
+                  onChange={(e) => setAddress(e.target.value)}
+                  placeholder="Enter Address Here"
                   required
                 />
               </div>
